@@ -36,6 +36,7 @@ export default function ProfileForm() {
   const [gender, setGender]           = useState('')
   const [prefecture, setPrefecture]   = useState('')
   const [occupation, setOccupation]   = useState('')
+  const [newsletterConsent, setNewsletterConsent] = useState(false)
   const [loading, setLoading]         = useState(false)
   const [error, setError]             = useState('')
   const [usernameStatus, setUsernameStatus] = useState<'idle' | 'checking' | 'ok' | 'taken' | 'invalid'>('idle')
@@ -174,6 +175,7 @@ export default function ProfileForm() {
       return
     }
 
+    const now = new Date().toISOString()
     const { error: upsertError } = await supabase
       .from('profiles')
       .upsert({
@@ -184,7 +186,10 @@ export default function ProfileForm() {
         gender:     gender     || null,
         prefecture: prefecture || null,
         occupation: occupation || null,
-        updated_at: new Date().toISOString(),
+        email:      user.email || null,
+        newsletter_consent: newsletterConsent,
+        newsletter_consent_at: newsletterConsent ? now : null,
+        updated_at: now,
       })
 
     if (upsertError) {
@@ -346,6 +351,27 @@ export default function ProfileForm() {
             <option key={occ.value} value={occ.value}>{occ.label}</option>
           ))}
         </select>
+      </div>
+
+      {/* メルマガ同意 */}
+      <div className="bg-orange-50 border border-orange-100 rounded-xl p-4">
+        <label className="flex items-start gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={newsletterConsent}
+            onChange={(e) => setNewsletterConsent(e.target.checked)}
+            className="mt-0.5 w-4 h-4 accent-orange-500 flex-shrink-0"
+          />
+          <div>
+            <p className="text-sm font-medium text-gray-800">
+              メールマガジンを受け取る（任意）
+            </p>
+            <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">
+              JAN口コミからの新着情報・キャンペーン・口コミトレンドなどをお届けします。
+              いつでも設定画面から解除できます。
+            </p>
+          </div>
+        </label>
       </div>
 
       {error && (

@@ -3,6 +3,7 @@ import { createSupabaseServerClient } from '@/app/lib/supabase-server'
 import { supabase } from '@/app/lib/supabase'
 import AppHeader from '@/app/components/AppHeader'
 import { BADGES, LEVELS, getLevelFromPoints, getNextLevel } from '@/app/lib/badges'
+import NewsletterToggle from './NewsletterToggle'
 
 export const revalidate = 0
 
@@ -14,7 +15,7 @@ export default async function ProfilePage() {
   // プロフィール
   const { data: profile } = await supabase
     .from('profiles')
-    .select('nickname, birthday, gender, prefecture, occupation')
+    .select('nickname, birthday, gender, prefecture, occupation, newsletter_consent')
     .eq('id', user.id)
     .maybeSingle()
 
@@ -107,6 +108,9 @@ export default async function ProfilePage() {
             )}
           </div>
         </div>
+
+        {/* メルマガ設定 */}
+        <NewsletterToggle initialConsent={profile?.newsletter_consent ?? false} />
 
         {/* バッジ一覧 */}
         <div>
