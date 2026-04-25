@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { trackEvent } from '@/app/lib/gtag'
 
 export default function ScannerClient() {
   const router = useRouter()
@@ -26,6 +27,7 @@ export default function ScannerClient() {
             setJanCode(decodedText)
             setStatus('found')
             html5QrcodeScanner.stop().catch(() => {})
+            trackEvent('scan_barcode', { jan_code: decodedText })
             // 少し待ってからページ遷移（スキャン成功を見せる）
             setTimeout(() => {
               router.push(`/search?q=${encodeURIComponent(decodedText)}`)

@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { supabase } from '@/app/lib/supabase'
 import { RADAR_AXES } from '@/app/lib/radarAxes'
 import AppHeader from '@/app/components/AppHeader'
+import GaEvent from '@/app/components/GaEvent'
 
 export const revalidate = 0
 
@@ -143,6 +144,11 @@ export default async function ThanksPage({ searchParams }: Props) {
       <AppHeader backHref="/" backLabel="← トップへ" />
 
       <main className="max-w-2xl mx-auto px-4 py-6 space-y-6">
+
+        <GaEvent
+          action="review_submit"
+          params={{ product_id: String(review.product_id), score: review.score ?? 0, category: product?.category }}
+        />
 
         {/* 完了メッセージ */}
         <div className="bg-white rounded-xl shadow-sm p-5 flex items-start gap-4">

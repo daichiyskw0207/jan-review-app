@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { toggleHelpful } from '@/app/actions/helpful'
+import { trackEvent } from '@/app/lib/gtag'
 
 interface Props {
   reviewId: number
@@ -30,6 +31,7 @@ export default function HelpfulButton({
     const newMarked = !marked
     setMarked(newMarked)
     setCount((c) => (newMarked ? c + 1 : c - 1))
+    trackEvent('helpful_click', { review_id: reviewId, action: newMarked ? 'add' : 'remove' })
 
     startTransition(async () => {
       const result = await toggleHelpful(reviewId)

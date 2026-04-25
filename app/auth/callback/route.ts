@@ -34,13 +34,15 @@ export async function GET(request: NextRequest) {
           .eq('id', user.id)
           .single()
         if (!profile?.nickname) {
-          return NextResponse.redirect(`${origin}/profile/setup`)
+          // 新規ユーザー（会員登録）
+          return NextResponse.redirect(`${origin}/profile/setup?ga=sign_up`)
         }
         if (!profile?.tutorial_completed) {
-          return NextResponse.redirect(`${origin}/tutorial`)
+          return NextResponse.redirect(`${origin}/tutorial?ga=login`)
         }
       }
-      return NextResponse.redirect(`${origin}${next}`)
+      // 既存ユーザー（ログイン）
+      return NextResponse.redirect(`${origin}${next}${next.includes('?') ? '&' : '?'}ga=login`)
     }
   }
 

@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { toggleWantToBuy } from '@/app/actions/wantToBuy'
+import { trackEvent } from '@/app/lib/gtag'
 
 interface Props {
   productId: string
@@ -31,6 +32,7 @@ export default function WantToBuyButton({
     const newSaved = !saved
     setSaved(newSaved)
     setCount((c) => (newSaved ? c + 1 : c - 1))
+    trackEvent('want_to_buy_toggle', { product_id: productId, action: newSaved ? 'add' : 'remove' })
 
     startTransition(async () => {
       const result = await toggleWantToBuy(productId)

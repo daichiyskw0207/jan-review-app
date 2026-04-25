@@ -13,6 +13,7 @@ import LoginWall from './LoginWall'
 import WantToBuyButton from './WantToBuyButton'
 import HelpfulButton from './HelpfulButton'
 import ShareButtons from './ShareButtons'
+import ProductViewTracker from './ProductViewTracker'
 import { createSupabaseServerClient } from '@/app/lib/supabase-server'
 
 interface Props {
@@ -127,6 +128,11 @@ export default async function ProductPage({ params, searchParams }: Props) {
       <AppHeader backHref="/" />
 
       <main className="max-w-4xl mx-auto px-4 py-6">
+        <ProductViewTracker
+          productId={product.id}
+          productName={product.name}
+          category={product.category}
+        />
 
         {/* 新規公開バナー */}
         {isNew && (
@@ -221,7 +227,7 @@ export default async function ProductPage({ params, searchParams }: Props) {
           </div>
 
           {/* SNSシェアボタン */}
-          <ShareButtons productName={product.name} />
+          <ShareButtons productName={product.name} productId={product.id} />
         </div>
 
         {/* レーダーチャート（レビューがある場合のみ） */}

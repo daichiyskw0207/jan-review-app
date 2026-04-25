@@ -1,6 +1,8 @@
 'use client'
 
+import { useEffect } from 'react'
 import Link from 'next/link'
+import { trackEvent } from '@/app/lib/gtag'
 
 interface Props {
   reviewCount: number
@@ -8,6 +10,10 @@ interface Props {
 }
 
 export default function LoginWall({ reviewCount, avgScore }: Props) {
+  useEffect(() => {
+    trackEvent('login_wall_shown', { review_count: reviewCount })
+  }, [reviewCount])
+
   return (
     <div className="relative">
       {/* ぼかしプレースホルダー */}

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { Suspense } from "react";
+import GaFromUrl from "@/app/components/GaFromUrl";
 import "./globals.css";
 
 const GA_ID = "G-5V0Z78HK82";
@@ -44,7 +46,12 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Suspense fallback={null}>
+          <GaFromUrl />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }

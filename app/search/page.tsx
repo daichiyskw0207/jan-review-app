@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/app/lib/supabase'
 import AppHeader from '@/app/components/AppHeader'
+import GaEvent from '@/app/components/GaEvent'
 
 interface Props {
   searchParams: Promise<{ q?: string }>
@@ -71,6 +72,7 @@ export default async function SearchPage({ searchParams }: Props) {
       </div>
 
       <main className="max-w-4xl mx-auto px-4 py-6">
+        <GaEvent action="search" params={{ search_term: query, result_count: products?.length ?? 0 }} />
         {/* JANコードで検索したが未登録の場合 */}
         {isJanCode && (!products || products.length === 0) && (
           <div className="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-6 text-center">

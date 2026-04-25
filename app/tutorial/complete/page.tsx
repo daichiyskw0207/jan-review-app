@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import AppHeader from '@/app/components/AppHeader'
+import GaEvent from '@/app/components/GaEvent'
 
 export default function TutorialCompletePage() {
   return (
     <div className="min-h-screen bg-gray-50">
+      <GaEvent action="tutorial_complete" />
       <AppHeader />
       <main className="max-w-lg mx-auto px-4 py-16 text-center">
         <div className="text-6xl mb-6">🎊</div>

@@ -69,7 +69,18 @@
       "Bash(\"}')",
       "Bash(curl -s -X POST https://api.supabase.com/v1/projects/jynrsffbmabitqdxvqci/database/query -H 'Authorization: Bearer sbp_4b8f0c03bdb84e495f5122e896bfe07234b8b643' -H 'Content-Type: application/json' -d '{\"query\": \"SELECT id, name, category, store_name, jan_code, price FROM products WHERE name ILIKE '\\\\''%コカ%'\\\\'' OR name ILIKE '\\\\''%コーラ%'\\\\'' ORDER BY name;\"}')",
       "Bash(git init *)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git config *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "mcp__Claude_in_Chrome__list_connected_browsers",
+      "mcp__Claude_in_Chrome__select_browser",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__navigate",
+      "mcp__Claude_in_Chrome__computer",
+      "mcp__Claude_in_Chrome__javascript_tool"
     ]
   }
 }

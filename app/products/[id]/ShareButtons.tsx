@@ -1,12 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { trackEvent } from '@/app/lib/gtag'
 
 interface Props {
   productName: string
+  productId?: string
 }
 
-export default function ShareButtons({ productName }: Props) {
+export default function ShareButtons({ productName, productId }: Props) {
   const [url, setUrl] = useState('')
 
   useEffect(() => {
@@ -29,6 +31,7 @@ export default function ShareButtons({ productName }: Props) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Xでシェア"
+        onClick={() => trackEvent('share', { method: 'X', content_type: 'product', item_id: productId })}
         className="flex items-center gap-1.5 bg-black hover:bg-gray-800 text-white text-xs font-bold px-3 py-1.5 rounded-full transition-colors"
       >
         <svg viewBox="0 0 24 24" width="13" height="13" fill="white" aria-hidden>
@@ -43,6 +46,7 @@ export default function ShareButtons({ productName }: Props) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="LINEでシェア"
+        onClick={() => trackEvent('share', { method: 'LINE', content_type: 'product', item_id: productId })}
         className="flex items-center gap-1.5 bg-[#06C755] hover:bg-[#05a847] text-white text-xs font-bold px-3 py-1.5 rounded-full transition-colors"
       >
         <svg viewBox="0 0 24 24" width="13" height="13" fill="white" aria-hidden>
