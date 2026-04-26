@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 import { createClient } from '@supabase/supabase-js'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Gmail SMTPトランスポーター
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD, // Googleアカウントのアプリパスワード
+  },
+})
 
 // service_role キーで認証なしにDB操作するためのクライアント
 const adminSupabase = createClient(
@@ -44,15 +51,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: '購読者が0人です' }, { status: 400 })
   }
 
-  // Resend でバッチ送信（1件ずつ送ることで配信停止リンクにユーザー情報を埋め込める）
+  // Nodemailerで1件ずつ送信（配信停止リンクにユーザー情報を埋め込む）
   const results = await Promise.allSettled(
     targets.map((sub) =>
-      resend.emails.send({
-        from: 'JAN口コミ <newsletter@jan-kuchikomi.jp>',
+      transporter.sendMail({
+        from: `"JAN口コミ" <${process.env.GMAIL_USER}>`,
         to: sub.email!,
         subject,
-        html: bodyHtml.replace('{{nickname}}', sub.nickname ?? 'ゲスト'),
-        text: bodyText?.replace('{{nickname}}', sub.nickname ?? 'ゲスト'),
+        html: bodyHtml.replace(/\{\{nickname\}\}/g, sub.nickname ?? 'ゲスト'),
+        text: bodyText?.replace(/\{\{nickname\}\}/g, sub.nickname ?? 'ゲスト'),
       })
     )
   )
@@ -65,7 +72,7 @@ export async function POST(req: NextRequest) {
     subject,
     body_html:        bodyHtml,
     body_text:        bodyText ?? null,
-    sent_by:          'admin',
+    sent_by:          process.env.GMAIL_USER ?? 'admin',
     recipient_count:  successCount,
     status:           failCount === 0 ? 'sent' : 'partial',
   })
