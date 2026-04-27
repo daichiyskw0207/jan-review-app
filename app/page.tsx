@@ -169,7 +169,7 @@ export default async function Home() {
 
       {/* 検索バー */}
       <div className="bg-gray-800 py-3">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-4xl mx-auto px-4 space-y-2">
           <form action="/search" method="get" className="flex items-center gap-1.5">
             <div className="flex-1 flex items-center bg-white rounded-lg px-3 py-2 gap-2 focus-within:ring-2 focus-within:ring-orange-400">
               <svg className="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -207,6 +207,34 @@ export default async function Home() {
             </Link>
             <ImageSearchButton />
           </form>
+
+          {/* カテゴリ・ブランドクイックリンク */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            <Link href="/categories" className="flex-shrink-0 flex items-center gap-1 bg-gray-700 hover:bg-gray-600 text-white text-xs px-3 py-1.5 rounded-full transition-colors">
+              📂 カテゴリ
+            </Link>
+            <Link href="/brands" className="flex-shrink-0 flex items-center gap-1 bg-gray-700 hover:bg-gray-600 text-white text-xs px-3 py-1.5 rounded-full transition-colors">
+              🏷️ ブランド
+            </Link>
+            <span className="text-gray-600 text-xs flex-shrink-0">|</span>
+            {[
+              { cat: 'お菓子・スナック', emoji: '🍿' },
+              { cat: 'ドリンク',         emoji: '🥤' },
+              { cat: 'スイーツ・デザート', emoji: '🍰' },
+              { cat: 'コンビニ惣菜',     emoji: '🍱' },
+              { cat: 'カップ麺・即席食品', emoji: '🍜' },
+              { cat: 'アイス',           emoji: '🍦' },
+              { cat: 'パン・サンドイッチ', emoji: '🥖' },
+            ].map(({ cat, emoji }) => (
+              <Link
+                key={cat}
+                href={`/categories/${encodeURIComponent(cat)}`}
+                className="flex-shrink-0 flex items-center gap-1 bg-gray-700 hover:bg-gray-600 text-white text-xs px-3 py-1.5 rounded-full transition-colors"
+              >
+                {emoji} {cat}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
 
