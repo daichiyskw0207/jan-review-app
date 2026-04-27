@@ -367,7 +367,7 @@ export default function ProfileForm() {
               メールマガジンを受け取る（任意）
             </p>
             <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">
-              JAN口コミからの新着情報・キャンペーン・口コミトレンドなどをお届けします。
+              ロコミーからの新着情報・キャンペーン・口コミトレンドなどをお届けします。
               いつでも設定画面から解除できます。
             </p>
           </div>

@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
   const results = await Promise.allSettled(
     targets.map((sub) =>
       transporter.sendMail({
-        from: `"JAN口コミ" <${process.env.GMAIL_USER}>`,
+        from: `"ロコミー" <${process.env.GMAIL_USER}>`,
         to: sub.email!,
         subject,
         html: bodyHtml.replace(/\{\{nickname\}\}/g, sub.nickname ?? 'ゲスト'),

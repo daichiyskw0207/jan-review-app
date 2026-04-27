@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import AppHeader from '@/app/components/AppHeader'
 
-export const metadata = { title: '企業向け利用規約 | JAN口コミ' }
+export const metadata = { title: '企業向け利用規約 | ロコミー' }
 
 export default function CompanyTermsPage() {
   return (
@@ -17,7 +17,7 @@ export default function CompanyTermsPage() {
           <p className="text-xs text-gray-400 mb-8">制定日：2025年4月24日</p>
 
           <p className="text-sm text-gray-600 leading-relaxed mb-8">
-            本企業会員利用規約（以下「本規約」）は、JAN口コミ（以下「当社」）が提供する企業向けマイページサービス（以下「本企業サービス」）の利用条件を定めるものです。企業会員として登録を申請し、または本企業サービスを利用することにより、本規約および<Link href="/terms" className="text-orange-500 underline">一般利用規約</Link>・<Link href="/privacy" className="text-orange-500 underline">プライバシーポリシー</Link>に同意したものとみなします。
+            本企業会員利用規約（以下「本規約」）は、ロコミー（以下「当社」）が提供する企業向けマイページサービス（以下「本企業サービス」）の利用条件を定めるものです。企業会員として登録を申請し、または本企業サービスを利用することにより、本規約および<Link href="/terms" className="text-orange-500 underline">一般利用規約</Link>・<Link href="/privacy" className="text-orange-500 underline">プライバシーポリシー</Link>に同意したものとみなします。
           </p>
 
           <Section id="1" title="第1条（定義）">

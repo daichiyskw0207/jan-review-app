@@ -17,7 +17,7 @@ interface Props {
 
 const TEMPLATE_HTML = `<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #1f2937;">
   <div style="background: #f97316; padding: 24px; border-radius: 12px 12px 0 0; text-align: center;">
-    <h1 style="color: white; margin: 0; font-size: 22px;">JAN口コミ ニュースレター</h1>
+    <h1 style="color: white; margin: 0; font-size: 22px;">ロコミー ニュースレター</h1>
   </div>
   <div style="background: white; padding: 28px; border: 1px solid #f3f4f6; border-radius: 0 0 12px 12px;">
     <p style="margin: 0 0 16px;">{{nickname}} さん、こんにちは！</p>
@@ -29,7 +29,7 @@ const TEMPLATE_HTML = `<div style="font-family: sans-serif; max-width: 600px; ma
     <div style="text-align: center; margin: 28px 0;">
       <a href="https://jan-review-pp806q8bj-daichiyskw0207s-projects.vercel.app"
          style="background: #f97316; color: white; padding: 12px 32px; border-radius: 999px; text-decoration: none; font-weight: bold; font-size: 15px;">
-        JAN口コミを見る
+        ロコミーを見る
       </a>
     </div>
 
@@ -136,7 +136,7 @@ export default function NewsletterEditor({ subscriberCount, history }: Props) {
                   type="text"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  placeholder="例：【JAN口コミ】今月の人気商品TOP10をお届け！"
+                  placeholder="例：【ロコミー】今月の人気商品TOP10をお届け！"
                   className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               </div>

@@ -32,7 +32,7 @@ export default function CompanyApplyPage() {
       <header className="bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center gap-3">
           <Link href="/" className="text-gray-400 hover:text-white text-sm">← 戻る</Link>
-          <span className="text-lg font-bold">JAN口コミ</span>
+          <span className="text-lg font-bold">ロコミー</span>
         </div>
       </header>
 

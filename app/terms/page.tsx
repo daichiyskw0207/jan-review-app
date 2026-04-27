@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import AppHeader from '@/app/components/AppHeader'
 
-export const metadata = { title: '利用規約 | JAN口コミ' }
+export const metadata = { title: '利用規約 | ロコミー' }
 
 export default function TermsPage() {
   return (
@@ -14,7 +14,7 @@ export default function TermsPage() {
           <p className="text-xs text-gray-400 mb-8">制定日：2025年4月24日</p>
 
           <p className="text-sm text-gray-600 leading-relaxed mb-8">
-            本利用規約（以下「本規約」）は、JAN口コミ（以下「当社」）が提供するコンビニ商品口コミサービス「JAN口コミ」（以下「本サービス」）の利用条件を定めるものです。ユーザーは本サービスを利用することにより、本規約および<Link href="/privacy" className="text-orange-500 underline">プライバシーポリシー</Link>に同意したものとみなします。
+            本利用規約（以下「本規約」）は、ロコミー（以下「当社」）が提供する商品口コミサービス「ロコミー」（以下「本サービス」）の利用条件を定めるものです。ユーザーは本サービスを利用することにより、本規約および<Link href="/privacy" className="text-orange-500 underline">プライバシーポリシー</Link>に同意したものとみなします。
           </p>
 
           <Section id="1" title="第1条（定義）">

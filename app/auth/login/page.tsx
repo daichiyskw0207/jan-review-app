@@ -20,7 +20,7 @@ export default async function LoginPage({ searchParams }: Props) {
       <header className="bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center gap-3">
           <Link href="/" className="text-gray-400 hover:text-white text-sm">← 戻る</Link>
-          <h1 className="text-lg font-bold tracking-wide">JAN口コミ</h1>
+          <h1 className="text-lg font-bold tracking-wide">ロコミー</h1>
         </div>
       </header>
 

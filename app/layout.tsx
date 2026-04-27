@@ -18,8 +18,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JAN口コミ",
-  description: "JANコードで商品を探して口コミを投稿・閲覧できるサービス",
+  title: "ロコミー",
+  description: "バーコードをスキャンして商品の口コミを投稿・閲覧できるサービス",
+  icons: {
+    icon: "/logo-icon.png",
+    apple: "/logo-icon.png",
+  },
+  openGraph: {
+    title: "ロコミー",
+    description: "バーコードをスキャンして商品の口コミを投稿・閲覧できるサービス",
+    images: [{ url: "/logo.png", width: 1200, height: 400 }],
+    locale: "ja_JP",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

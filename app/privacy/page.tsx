@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import AppHeader from '@/app/components/AppHeader'
 
-export const metadata = { title: 'プライバシーポリシー | JAN口コミ' }
+export const metadata = { title: 'プライバシーポリシー | ロコミー' }
 
 export default function PrivacyPage() {
   return (
@@ -14,7 +14,7 @@ export default function PrivacyPage() {
           <p className="text-xs text-gray-400 mb-8">制定日：2025年4月24日</p>
 
           <p className="text-sm text-gray-600 leading-relaxed mb-8">
-            JAN口コミ（以下「当社」）は、本サービスにおけるユーザーの個人情報・利用データの取り扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」）を定めます。本サービスの利用をもって本ポリシーに同意したものとみなします。
+            ロコミー（以下「当社」）は、本サービスにおけるユーザーの個人情報・利用データの取り扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」）を定めます。本サービスの利用をもって本ポリシーに同意したものとみなします。
           </p>
 
           <Section id="1" title="第1条（収集する情報）">
@@ -133,7 +133,7 @@ export default function PrivacyPage() {
           <Section id="10" title="第10条（お問い合わせ）">
             <p>個人情報の取り扱いに関するお問い合わせ・苦情・請求については、以下の窓口までご連絡ください。</p>
             <div className="mt-2 bg-gray-50 rounded-lg p-4 text-sm">
-              <p>JAN口コミ 個人情報取り扱い窓口</p>
+              <p>ロコミー 個人情報取り扱い窓口</p>
               <p className="text-gray-400 mt-1">（お問い合わせ窓口は準備中です）</p>
             </div>
           </Section>
