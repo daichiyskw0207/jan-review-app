@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /api/
+Disallow: /company/
+Disallow: /profile/
+Disallow: /reviews/new
+Disallow: /scan
+
+Sitemap: https://rocomee.com/sitemap.xml
