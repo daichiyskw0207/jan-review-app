@@ -51,23 +51,42 @@ export async function submitProduct(
 
   const price = price_str ? parseInt(price_str, 10) : null
 
-  const { data: inserted, error } = await supabase
+  // まず item_type を含めてINSERT試行。カラムが未作成の場合はフォールバック
+  let inserted: { id: number } | null = null
+  let insertError: { message?: string } | null = null
+
+  const basePayload = {
+    name: name.trim(),
+    category: category.trim(),
+    sub_category: sub_category?.trim() || null,
+    store_name: store_name?.trim() || null,
+    jan_code: jan_code?.trim() || null,
+    price: price_str && !isNaN(price as number) ? price : null,
+    status,
+    submitted_by: 'user',
+  }
+
+  const { data: d1, error: e1 } = await supabase
     .from('products')
-    .insert({
-      name: name.trim(),
-      category: category.trim(),
-      sub_category: sub_category?.trim() || null,
-      item_type: item_type?.trim() || null,
-      store_name: store_name?.trim() || null,
-      jan_code: jan_code?.trim() || null,
-      price: price_str && !isNaN(price as number) ? price : null,
-      status,
-      submitted_by: 'user',
-    })
+    .insert({ ...basePayload, item_type: item_type?.trim() || null })
     .select('id')
     .single()
 
-  if (error || !inserted) {
+  if (e1?.message?.includes('item_type')) {
+    // item_type カラムがまだ追加されていない → カラムなしで再試行
+    const { data: d2, error: e2 } = await supabase
+      .from('products')
+      .insert(basePayload)
+      .select('id')
+      .single()
+    inserted = d2
+    insertError = e2
+  } else {
+    inserted = d1
+    insertError = e1
+  }
+
+  if (insertError || !inserted) {
     return { message: '商品の登録に失敗しました。もう一度お試しください。' }
   }
 
