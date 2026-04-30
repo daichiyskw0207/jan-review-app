@@ -1,40 +1,36 @@
 'use client'
 
+import { useState } from 'react'
 import { useActionState } from 'react'
 import { submitProduct, ProductSubmitState } from './actions'
+import {
+  CATEGORY_HIERARCHY,
+  getSubCategories,
+  getItemTypes,
+} from '@/app/lib/categoryHierarchy'
 
-const CATEGORIES = [
-  // 食品
-  'ホットスナック',
-  'コンビニ惣菜',
-  'スイーツ・デザート',
-  'パン・サンドイッチ',
-  'ドリンク',
-  'カップ麺・即席食品',
-  'お菓子・スナック',
-  'チルド食品',
-  'アイス',
-  // 家電
-  'スマートフォン・タブレット',
-  'パソコン・周辺機器',
-  'テレビ・映像機器',
-  '生活家電',
-  '調理家電',
-  'カメラ・オーディオ',
-  // 家具・インテリア
-  'ソファ・チェア',
-  'テーブル・デスク',
-  '収納・棚',
-  'ベッド・寝具',
-  'インテリア・雑貨',
-  // その他
-  'その他',
-]
+const CATEGORIES = Object.keys(CATEGORY_HIERARCHY)
 
 const initialState: ProductSubmitState = {}
 
 export default function ProductSubmitForm({ initialJan }: { initialJan?: string }) {
   const [state, formAction, pending] = useActionState(submitProduct, initialState)
+  const [selectedCategory, setSelectedCategory] = useState('')
+  const [selectedSubCategory, setSelectedSubCategory] = useState('')
+
+  const subCategories = selectedCategory ? getSubCategories(selectedCategory) : []
+  const itemTypes = selectedCategory && selectedSubCategory
+    ? getItemTypes(selectedCategory, selectedSubCategory)
+    : []
+
+  function handleCategoryChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedCategory(e.target.value)
+    setSelectedSubCategory('')
+  }
+
+  function handleSubCategoryChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    setSelectedSubCategory(e.target.value)
+  }
 
   return (
     <form action={formAction} className="space-y-5">
@@ -85,7 +81,7 @@ export default function ProductSubmitForm({ initialJan }: { initialJan?: string 
         )}
       </div>
 
-      {/* カテゴリ */}
+      {/* カテゴリ（大） */}
       <div>
         <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1.5">
           カテゴリ<span className="text-orange-500 ml-1">*</span>
@@ -94,7 +90,8 @@ export default function ProductSubmitForm({ initialJan }: { initialJan?: string 
           id="category"
           name="category"
           required
-          defaultValue=""
+          value={selectedCategory}
+          onChange={handleCategoryChange}
           className="w-full bg-white border border-gray-300 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-gray-900 rounded-lg px-4 py-2.5 text-sm outline-none transition-colors"
         >
           <option value="" disabled>カテゴリを選択</option>
@@ -106,6 +103,48 @@ export default function ProductSubmitForm({ initialJan }: { initialJan?: string 
           <p className="text-red-500 text-xs mt-1.5">{state.errors.category[0]}</p>
         )}
       </div>
+
+      {/* サブカテゴリ（中）：カテゴリ選択後に表示 */}
+      {subCategories.length > 0 && (
+        <div>
+          <label htmlFor="sub_category" className="block text-sm font-medium text-gray-700 mb-1.5">
+            サブカテゴリ
+            <span className="text-gray-400 text-xs font-normal ml-1">（任意）</span>
+          </label>
+          <select
+            id="sub_category"
+            name="sub_category"
+            value={selectedSubCategory}
+            onChange={handleSubCategoryChange}
+            className="w-full bg-white border border-gray-300 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-gray-900 rounded-lg px-4 py-2.5 text-sm outline-none transition-colors"
+          >
+            <option value="">選択しない</option>
+            {subCategories.map((sub) => (
+              <option key={sub} value={sub}>{sub}</option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {/* 商品タイプ（小）：サブカテゴリ選択後に表示 */}
+      {itemTypes.length > 0 && (
+        <div>
+          <label htmlFor="item_type" className="block text-sm font-medium text-gray-700 mb-1.5">
+            商品タイプ
+            <span className="text-gray-400 text-xs font-normal ml-1">（任意）</span>
+          </label>
+          <select
+            id="item_type"
+            name="item_type"
+            className="w-full bg-white border border-gray-300 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 text-gray-900 rounded-lg px-4 py-2.5 text-sm outline-none transition-colors"
+          >
+            <option value="">選択しない</option>
+            {itemTypes.map((type) => (
+              <option key={type} value={type}>{type}</option>
+            ))}
+          </select>
+        </div>
+      )}
 
       {/* メーカー・ブランド */}
       <div>

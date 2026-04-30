@@ -3,21 +3,11 @@ import Link from 'next/link'
 import { supabase } from '@/app/lib/supabase'
 import AppHeader from '@/app/components/AppHeader'
 import ProductCard from '@/app/components/ProductCard'
+import { CATEGORY_HIERARCHY, getSubCategories } from '@/app/lib/categoryHierarchy'
 
 export const revalidate = 60
 
-const VALID_CATEGORIES = [
-  // 食品
-  'ホットスナック', 'コンビニ惣菜', 'スイーツ・デザート', 'パン・サンドイッチ',
-  'ドリンク', 'カップ麺・即席食品', 'お菓子・スナック', 'チルド食品', 'アイス',
-  // 家電
-  'スマートフォン・タブレット', 'パソコン・周辺機器', 'テレビ・映像機器',
-  '生活家電', '調理家電', 'カメラ・オーディオ',
-  // 家具・インテリア
-  'ソファ・チェア', 'テーブル・デスク', '収納・棚', 'ベッド・寝具', 'インテリア・雑貨',
-  // その他
-  'その他',
-]
+const VALID_CATEGORIES = Object.keys(CATEGORY_HIERARCHY)
 
 const SORT_OPTIONS = [
   { value: 'score',      label: '評価が高い順' },
@@ -29,7 +19,7 @@ type SortKey = typeof SORT_OPTIONS[number]['value']
 
 interface Props {
   params: Promise<{ category: string }>
-  searchParams: Promise<{ sort?: string }>
+  searchParams: Promise<{ sort?: string; sub?: string }>
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -40,18 +30,23 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function CategoryPage({ params, searchParams }: Props) {
   const { category } = await params
-  const { sort } = await searchParams
+  const { sort, sub } = await searchParams
   const cat = decodeURIComponent(category)
 
   if (!VALID_CATEGORIES.includes(cat)) notFound()
 
   const sortKey: SortKey = (SORT_OPTIONS.find(o => o.value === sort)?.value) ?? 'score'
+  const subCategories = getSubCategories(cat)
 
   let query = supabase
     .from('products')
-    .select('id, name, category, store_name, jan_code, score')
+    .select('id, name, category, sub_category, store_name, jan_code, score')
     .eq('status', 'approved')
     .eq('category', cat)
+
+  if (sub) {
+    query = query.eq('sub_category', sub)
+  }
 
   if (sortKey === 'score') {
     query = query.order('score', { ascending: false, nullsFirst: false })
@@ -79,7 +74,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
             {SORT_OPTIONS.map((opt) => (
               <Link
                 key={opt.value}
-                href={`/categories/${encodeURIComponent(cat)}?sort=${opt.value}`}
+                href={`/categories/${encodeURIComponent(cat)}?sort=${opt.value}${sub ? `&sub=${encodeURIComponent(sub)}` : ''}`}
                 className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
                   sortKey === opt.value
                     ? 'bg-orange-500 text-white border-orange-500'
@@ -91,6 +86,35 @@ export default async function CategoryPage({ params, searchParams }: Props) {
             ))}
           </div>
         </div>
+
+        {/* サブカテゴリフィルター */}
+        {subCategories.length > 0 && (
+          <div className="flex gap-2 flex-wrap mb-5">
+            <Link
+              href={`/categories/${encodeURIComponent(cat)}?sort=${sortKey}`}
+              className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
+                !sub
+                  ? 'bg-gray-700 text-white border-gray-700'
+                  : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
+              }`}
+            >
+              すべて
+            </Link>
+            {subCategories.map((s) => (
+              <Link
+                key={s}
+                href={`/categories/${encodeURIComponent(cat)}?sort=${sortKey}&sub=${encodeURIComponent(s)}`}
+                className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
+                  sub === s
+                    ? 'bg-gray-700 text-white border-gray-700'
+                    : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
+                }`}
+              >
+                {s}
+              </Link>
+            ))}
+          </div>
+        )}
 
         {!products || products.length === 0 ? (
           <div className="text-center py-20 text-gray-400">

@@ -18,6 +18,8 @@ export async function submitProduct(
 ): Promise<ProductSubmitState> {
   const name = formData.get('name') as string
   const category = formData.get('category') as string
+  const sub_category = formData.get('sub_category') as string
+  const item_type = formData.get('item_type') as string
   const store_name = formData.get('store_name') as string
   const jan_code = formData.get('jan_code') as string
   const price_str = formData.get('price') as string
@@ -54,6 +56,8 @@ export async function submitProduct(
     .insert({
       name: name.trim(),
       category: category.trim(),
+      sub_category: sub_category?.trim() || null,
+      item_type: item_type?.trim() || null,
       store_name: store_name?.trim() || null,
       jan_code: jan_code?.trim() || null,
       price: price_str && !isNaN(price as number) ? price : null,

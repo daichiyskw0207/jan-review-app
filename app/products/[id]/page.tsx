@@ -170,6 +170,16 @@ export default async function ProductPage({ params, searchParams }: Props) {
                 <span className="text-xs font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">
                   {product.category}
                 </span>
+                {product.sub_category && (
+                  <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                    {product.sub_category}
+                  </span>
+                )}
+                {product.item_type && (
+                  <span className="text-xs font-medium text-gray-400 bg-gray-50 border border-gray-200 px-2 py-0.5 rounded-full">
+                    {product.item_type}
+                  </span>
+                )}
               </div>
               {company ? (
                 <Link
