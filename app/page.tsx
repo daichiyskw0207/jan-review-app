@@ -159,19 +159,19 @@ export default async function Home() {
       <AppHeader
         actions={
           <>
-            <Link href="/companies" className="text-sm text-gray-300 hover:text-white px-3 py-1.5">企業</Link>
-            <Link href="/company/apply" className="text-sm text-gray-300 hover:text-white px-3 py-1.5">企業登録</Link>
-            <Link href="/products/pending" className="text-sm text-gray-300 hover:text-white px-3 py-1.5">審査中</Link>
-            <Link href="/products/new" className="text-sm bg-orange-500 hover:bg-orange-600 text-white px-4 py-1.5 rounded-full">商品を追加</Link>
+            <Link href="/companies" className="text-sm text-gray-500 hover:text-gray-900 px-3 py-1.5 transition-colors">企業</Link>
+            <Link href="/company/apply" className="text-sm text-gray-500 hover:text-gray-900 px-3 py-1.5 transition-colors">企業登録</Link>
+            <Link href="/products/pending" className="text-sm text-gray-500 hover:text-gray-900 px-3 py-1.5 transition-colors">審査中</Link>
+            <Link href="/products/new" className="text-sm bg-orange-500 hover:bg-orange-600 text-white px-4 py-1.5 rounded-full transition-colors">商品を追加</Link>
           </>
         }
       />
 
       {/* 検索バー */}
-      <div className="bg-gray-800 py-3">
+      <div className="bg-orange-500 py-4">
         <div className="max-w-4xl mx-auto px-4 space-y-2">
           <form action="/search" method="get" className="flex items-center gap-1.5">
-            <div className="flex-1 flex items-center bg-white rounded-lg px-3 py-2 gap-2 focus-within:ring-2 focus-within:ring-orange-400">
+            <div className="flex-1 flex items-center bg-white rounded-lg px-3 py-2 gap-2 shadow-sm focus-within:ring-2 focus-within:ring-white">
               <svg className="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
@@ -182,12 +182,12 @@ export default async function Home() {
                 className="flex-1 text-sm text-gray-800 outline-none bg-transparent"
               />
             </div>
-            <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium">
+            <button type="submit" className="bg-white hover:bg-orange-50 text-orange-500 font-bold px-4 py-2 rounded-lg text-sm shadow-sm transition-colors">
               検索
             </button>
             <Link
               href="/scan"
-              className="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg flex items-center justify-center"
+              className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg flex items-center justify-center transition-colors"
               title="バーコードをスキャン"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
@@ -210,13 +210,13 @@ export default async function Home() {
 
           {/* カテゴリ・ブランドクイックリンク */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-            <Link href="/categories" className="flex-shrink-0 flex items-center gap-1 bg-gray-700 hover:bg-gray-600 text-white text-xs px-3 py-1.5 rounded-full transition-colors">
+            <Link href="/categories" className="flex-shrink-0 flex items-center gap-1 bg-white/20 hover:bg-white/30 text-white text-xs px-3 py-1.5 rounded-full transition-colors">
               📂 カテゴリ
             </Link>
-            <Link href="/brands" className="flex-shrink-0 flex items-center gap-1 bg-gray-700 hover:bg-gray-600 text-white text-xs px-3 py-1.5 rounded-full transition-colors">
+            <Link href="/brands" className="flex-shrink-0 flex items-center gap-1 bg-white/20 hover:bg-white/30 text-white text-xs px-3 py-1.5 rounded-full transition-colors">
               🏷️ ブランド
             </Link>
-            <span className="text-gray-600 text-xs flex-shrink-0">|</span>
+            <span className="text-orange-200 text-xs flex-shrink-0">|</span>
             {[
               { cat: 'お菓子・スナック', emoji: '🍿' },
               { cat: 'ドリンク',         emoji: '🥤' },
@@ -229,7 +229,7 @@ export default async function Home() {
               <Link
                 key={cat}
                 href={`/categories/${encodeURIComponent(cat)}`}
-                className="flex-shrink-0 flex items-center gap-1 bg-gray-700 hover:bg-gray-600 text-white text-xs px-3 py-1.5 rounded-full transition-colors"
+                className="flex-shrink-0 flex items-center gap-1 bg-white/20 hover:bg-white/30 text-white text-xs px-3 py-1.5 rounded-full transition-colors"
               >
                 {emoji} {cat}
               </Link>
