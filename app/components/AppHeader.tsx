@@ -10,11 +10,11 @@ interface Props {
 
 export default function AppHeader({ backHref, backLabel = '← 戻る', actions }: Props) {
   return (
-    <header className="bg-gray-900 text-white">
+    <header className="bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           {backHref && (
-            <Link href={backHref} className="text-gray-400 hover:text-white text-sm">
+            <Link href={backHref} className="text-gray-400 hover:text-gray-700 text-sm transition-colors">
               {backLabel}
             </Link>
           )}

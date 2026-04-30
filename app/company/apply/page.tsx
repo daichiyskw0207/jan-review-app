@@ -29,10 +29,10 @@ export default function CompanyApplyPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="bg-gray-900 text-white">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center gap-3">
-          <Link href="/" className="text-gray-400 hover:text-white text-sm">← 戻る</Link>
-          <span className="text-lg font-bold">ロコミー</span>
+      <header className="bg-white border-b border-gray-100 shadow-sm">
+        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
+          <Link href="/" className="text-gray-400 hover:text-gray-700 text-sm transition-colors">← 戻る</Link>
+          <Link href="/"><img src="/logo.png" alt="ロコミー" style={{ height: '32px', width: 'auto' }} /></Link>
         </div>
       </header>
 
