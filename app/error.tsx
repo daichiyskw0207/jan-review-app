@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react'
 import Link from 'next/link'
-import AppHeader from '@/app/components/AppHeader'
 
 export default function Error({
   error,
@@ -17,7 +16,11 @@ export default function Error({
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <AppHeader />
+      <header className="bg-white shadow-sm sticky top-0 z-30">
+        <div className="max-w-4xl mx-auto px-4 h-14 flex items-center">
+          <Link href="/" className="font-bold text-orange-500 text-lg">ロコミー</Link>
+        </div>
+      </header>
       <main className="max-w-lg mx-auto px-4 py-24 text-center">
         <p className="text-7xl font-black text-gray-300 mb-4">500</p>
         <h1 className="text-xl font-bold text-gray-900 mb-2">エラーが発生しました</h1>
