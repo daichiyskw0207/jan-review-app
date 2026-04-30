@@ -159,9 +159,9 @@ export default async function Home() {
       <AppHeader
         actions={
           <>
-            <Link href="/companies" className="text-sm text-gray-500 hover:text-gray-900 px-3 py-1.5 transition-colors">企業</Link>
-            <Link href="/company/apply" className="text-sm text-gray-500 hover:text-gray-900 px-3 py-1.5 transition-colors">企業登録</Link>
-            <Link href="/products/pending" className="text-sm text-gray-500 hover:text-gray-900 px-3 py-1.5 transition-colors">審査中</Link>
+            <Link href="/companies" className="text-sm text-gray-700 hover:text-orange-500 px-3 py-1.5 transition-colors font-medium">企業</Link>
+            <Link href="/company/apply" className="text-sm text-gray-700 hover:text-orange-500 px-3 py-1.5 transition-colors font-medium">企業登録</Link>
+            <Link href="/products/pending" className="text-sm text-gray-700 hover:text-orange-500 px-3 py-1.5 transition-colors font-medium">審査中</Link>
             <Link href="/products/new" className="text-sm bg-orange-500 hover:bg-orange-600 text-white px-4 py-1.5 rounded-full transition-colors">商品を追加</Link>
           </>
         }
