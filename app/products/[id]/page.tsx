@@ -14,6 +14,7 @@ import WantToBuyButton from './WantToBuyButton'
 import HelpfulButton from './HelpfulButton'
 import ShareButtons from './ShareButtons'
 import ProductViewTracker from './ProductViewTracker'
+import ProductImageUpload from './ProductImageUpload'
 import { createSupabaseServerClient } from '@/app/lib/supabase-server'
 
 interface Props {
@@ -144,15 +145,23 @@ export default async function ProductPage({ params, searchParams }: Props) {
         {/* 商品情報 */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-4">
           <div className="flex gap-5">
-            <div className="w-28 h-28 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden flex items-center justify-center">
-              {product.image_url ? (
-                <img
-                  src={product.image_url}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
+            <div className="flex-shrink-0 w-28">
+              <div className="w-28 h-28 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
+                {product.image_url ? (
+                  <img
+                    src={product.image_url}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-gray-300 text-4xl">📦</span>
+                )}
+              </div>
+              {isLoggedIn && (
+                <ProductImageUpload
+                  productId={String(product.id)}
+                  currentImageUrl={product.image_url}
                 />
-              ) : (
-                <span className="text-gray-300 text-4xl">📦</span>
               )}
             </div>
             <div className="flex-1">
