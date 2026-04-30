@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useActionState } from 'react'
 import { submitReview, ReviewFormState } from './actions'
-import { RADAR_AXES } from '@/app/lib/radarAxes'
+import { getRadarAxes } from '@/app/lib/radarAxes'
 import HashtagInput from '@/app/components/HashtagInput'
 
 const initialState: ReviewFormState = {}
@@ -38,12 +38,14 @@ function StarPicker({ name, legend }: { name: string; legend: string }) {
   )
 }
 
-export default function ReviewForm({ productId }: { productId: string }) {
+export default function ReviewForm({ productId, category }: { productId: string; category?: string }) {
   const [state, formAction, pending] = useActionState(submitReview, initialState)
+  const radarAxes = getRadarAxes(category)
 
   return (
     <form action={formAction} className="space-y-6">
       <input type="hidden" name="product_id" value={productId} />
+      <input type="hidden" name="category" value={category ?? ''} />
 
       {state.message && (
         <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg px-4 py-3">
@@ -79,7 +81,7 @@ export default function ReviewForm({ productId }: { productId: string }) {
           <span className="text-xs text-gray-400">各項目を★で評価してください</span>
         </div>
         <div className="bg-gray-50 rounded-xl p-4 space-y-3">
-          {RADAR_AXES.map((axis) => (
+          {radarAxes.map((axis) => (
             <div key={axis.key} className="flex items-center justify-between">
               <span className="text-sm text-gray-700 w-32 flex-shrink-0">{axis.label}</span>
               <StarPicker name={axis.key} legend={axis.label} />

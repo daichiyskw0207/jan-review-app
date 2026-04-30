@@ -3,7 +3,7 @@ export const revalidate = 0
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/app/lib/supabase'
-import { RADAR_AXES } from '@/app/lib/radarAxes'
+import { getRadarAxes } from '@/app/lib/radarAxes'
 import DynamicRadarChart from './DynamicRadarChart'
 import AppHeader from '@/app/components/AppHeader'
 import { getLevelFromPoints } from '@/app/lib/badges'
@@ -101,7 +101,8 @@ export default async function ProductPage({ params, searchParams }: Props) {
 
   // レーダーチャート用に全レビューのradar_scoresを平均する
   const validReviews = (reviews ?? []).filter((r) => r.radar_scores)
-  const radarData = RADAR_AXES.map((axis) => {
+  const radarAxes = getRadarAxes(product.category)
+  const radarData = radarAxes.map((axis) => {
     const values = validReviews
       .map((r) => (r.radar_scores as Record<string, number>)[axis.label])
       .filter((v) => typeof v === 'number')

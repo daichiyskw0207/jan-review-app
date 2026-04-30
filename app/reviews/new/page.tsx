@@ -180,7 +180,7 @@ export default async function NewReviewPage({ searchParams }: Props) {
           <>
             {/* フォームカード */}
             <div className="bg-white rounded-xl shadow-sm p-6 mb-4">
-              <ReviewForm productId={product_id ?? ''} />
+              <ReviewForm productId={product_id ?? ''} category={product?.category ?? ''} />
             </div>
 
             {/* ガイドライン */}

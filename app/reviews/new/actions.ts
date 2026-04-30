@@ -3,7 +3,7 @@
 import { redirect } from 'next/navigation'
 import { supabase } from '@/app/lib/supabase'
 import { createSupabaseServerClient } from '@/app/lib/supabase-server'
-import { RADAR_AXES } from '@/app/lib/radarAxes'
+import { getRadarAxes } from '@/app/lib/radarAxes'
 import { processReviewGamification } from '@/app/lib/gamification'
 
 export type ReviewFormState = {
@@ -23,7 +23,9 @@ export async function submitReview(
   const user_name = formData.get('user_name') as string
   const comment = formData.get('comment') as string
   const product_id = formData.get('product_id') as string
+  const category = formData.get('category') as string | null
   const allow_recommend = formData.get('allow_recommend') === 'true'
+  const radarAxes = getRadarAxes(category)
 
   // ログインチェック（未ログインは投稿不可）
   const serverClient = await createSupabaseServerClient()
@@ -52,7 +54,7 @@ export async function submitReview(
   // レーダー軸のスコアを取得・検証
   const radarScores: Record<string, number> = {}
   let radarMissing = false
-  for (const axis of RADAR_AXES) {
+  for (const axis of radarAxes) {
     const val = formData.get(axis.key) as string
     if (!val) { radarMissing = true; break }
     const n = parseInt(val, 10)
