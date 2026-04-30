@@ -209,7 +209,7 @@ export default async function Home() {
           </form>
 
           {/* カテゴリ・ブランドクイックリンク */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
             <Link href="/categories" className="flex-shrink-0 flex items-center gap-1 bg-white/20 hover:bg-white/30 text-white text-xs px-3 py-1.5 rounded-full transition-colors">
               📂 カテゴリ
             </Link>
