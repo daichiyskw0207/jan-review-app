@@ -20,17 +20,17 @@ export default async function CompanyLayout({ children }: { children: React.Reac
   return (
     <div className="min-h-screen bg-gray-100">
       {/* ヘッダー */}
-      <header className="bg-gray-900 text-white">
+      <header className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/" className="text-gray-400 hover:text-white text-sm">← サイトトップ</Link>
-            <span className="text-gray-600">|</span>
+            <Link href="/" className="text-gray-400 hover:text-gray-700 text-sm transition-colors">← サイトトップ</Link>
+            <span className="text-gray-300">|</span>
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center text-white text-xs font-bold">
                 {cu.company.name[0]}
               </div>
-              <span className="text-sm font-bold">{cu.company.name}</span>
-              <span className="text-xs text-gray-400 bg-gray-700 px-2 py-0.5 rounded">企業マイページ</span>
+              <span className="text-sm font-bold text-gray-800">{cu.company.name}</span>
+              <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">企業マイページ</span>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { createSupabaseBrowserClient } from '@/app/lib/supabase-browser'
 
 const PROVIDERS = [
@@ -30,32 +31,53 @@ const PROVIDERS = [
 
 export default function LoginButtons() {
   const supabase = createSupabaseBrowserClient()
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState<string | null>(null)
 
   async function handleOAuth(provider: 'google' | 'twitter' | 'facebook') {
-    const options: Parameters<typeof supabase.auth.signInWithOAuth>[0]['options'] = {
-      redirectTo: `${location.origin}/auth/callback`,
-      skipBrowserRedirect: true,
-    }
-    // Facebook は email スコープ不要（Meta の審査が必要なため除外）
-    if (provider === 'facebook') {
-      options.scopes = 'public_profile'
-    }
-    const { data, error } = await supabase.auth.signInWithOAuth({ provider, options })
-    if (data?.url) {
-      window.location.href = data.url
+    setError(null)
+    setLoading(provider)
+    try {
+      const options: Parameters<typeof supabase.auth.signInWithOAuth>[0]['options'] = {
+        redirectTo: `${location.origin}/auth/callback`,
+        skipBrowserRedirect: true,
+      }
+      if (provider === 'facebook') {
+        options.scopes = 'public_profile'
+      }
+      const { data, error: oauthError } = await supabase.auth.signInWithOAuth({ provider, options })
+      if (oauthError) {
+        setError(oauthError.message)
+        return
+      }
+      if (data?.url) {
+        window.location.href = data.url
+      } else {
+        setError('ログインURLを取得できませんでした。Supabaseでプロバイダーが有効になっているか確認してください。')
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : '予期しないエラーが発生しました')
+    } finally {
+      setLoading(null)
     }
   }
 
   return (
     <div className="space-y-3">
+      {error && (
+        <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+          {error}
+        </div>
+      )}
       {PROVIDERS.map((p) => (
         <button
           key={p.id}
           onClick={() => handleOAuth(p.id as 'google' | 'twitter' | 'facebook')}
-          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-colors ${p.bg}`}
+          disabled={loading !== null}
+          className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-sm transition-colors ${p.bg} disabled:opacity-60 disabled:cursor-not-allowed`}
         >
           {p.icon}
-          {p.label}
+          {loading === p.id ? '処理中...' : p.label}
         </button>
       ))}
 

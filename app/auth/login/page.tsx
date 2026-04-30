@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import LoginButtons from './LoginButtons'
 
 interface Props {
@@ -17,10 +18,12 @@ export default async function LoginPage({ searchParams }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="bg-gray-900 text-white">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center gap-3">
-          <Link href="/" className="text-gray-400 hover:text-white text-sm">← 戻る</Link>
-          <h1 className="text-lg font-bold tracking-wide">ロコミー</h1>
+      <header className="bg-white border-b border-gray-100 shadow-sm">
+        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
+          <Link href="/" className="text-gray-400 hover:text-gray-700 text-sm transition-colors">← 戻る</Link>
+          <Link href="/">
+            <Image src="/logo.png" alt="ロコミー" width={120} height={40} style={{ height: '32px', width: 'auto' }} priority />
+          </Link>
         </div>
       </header>
 

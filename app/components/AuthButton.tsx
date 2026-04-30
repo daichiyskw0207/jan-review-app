@@ -15,7 +15,7 @@ export default async function AuthButton() {
         <Link
           href="/mylist"
           aria-label="気になるリスト"
-          className="text-gray-400 hover:text-orange-400 transition-colors"
+          className="text-gray-400 hover:text-orange-500 transition-colors"
         >
           <svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" aria-hidden>
             <polygon points="10,1.5 18.5,10 10,18.5 1.5,10" />
@@ -30,7 +30,7 @@ export default async function AuthButton() {
               {name[0]}
             </div>
           )}
-          <span className="text-sm text-gray-300 max-w-[80px] truncate">{name}</span>
+          <span className="text-sm text-gray-600 max-w-[80px] truncate">{name}</span>
         </Link>
         <SignOutButton />
       </div>
@@ -40,9 +40,9 @@ export default async function AuthButton() {
   return (
     <Link
       href="/auth/login"
-      className="text-sm bg-white text-gray-900 hover:bg-gray-100 px-3 py-1.5 rounded-full font-medium transition-colors"
+      className="text-sm bg-orange-500 hover:bg-orange-600 text-white px-4 py-1.5 rounded-full font-medium transition-colors whitespace-nowrap"
     >
-      ログイン
+      新規登録/ログイン
     </Link>
   )
 }
